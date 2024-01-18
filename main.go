@@ -17,12 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func() {
-		err := db.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
+	defer db.Close()
 
 	source, err := producer.ProduceFromDB(db, config.DBName())
 	if err != nil {
