@@ -17,11 +17,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	defer func() {
 		err := db.Close()
 		if err != nil {
