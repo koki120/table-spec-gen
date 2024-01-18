@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
@@ -16,7 +15,11 @@ import (
 func main() {
 	db, err := sql.Open("mysql", config.DSN())
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		log.Fatal(err)
+	}
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	defer func() {
