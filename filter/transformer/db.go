@@ -40,11 +40,11 @@ func ConvertSQLRowsToTableMetadata(rows *sql.Rows) ([]pipe.ColumnMetadata, error
 }
 
 // columnsがテーブル順であることが前提
-func ConvertColumnMetadataToTableMetaData(metadata []pipe.ColumnMetadata) []pipe.TableMetaData {
+func ConvertColumnMetadataToTableMetaData(cols []pipe.ColumnMetadata) []pipe.TableMetaData {
 	result := make([]pipe.TableMetaData, 0, 100)
 	currentTableName := ""
 	currentColumns := make([]pipe.Column, 0, 20)
-	for i, col := range metadata {
+	for i, col := range cols {
 		if currentTableName != col.TableName {
 			if currentTableName != "" {
 				result = append(result, pipe.TableMetaData{TableName: currentTableName, Columns: currentColumns})
@@ -62,7 +62,7 @@ func ConvertColumnMetadataToTableMetaData(metadata []pipe.ColumnMetadata) []pipe
 			ConstraintTypes:     col.ConstraintTypes,
 		})
 
-		if i == len(metadata)-1 {
+		if i == len(cols)-1 {
 			result = append(result, pipe.TableMetaData{TableName: currentTableName, Columns: currentColumns})
 		}
 
