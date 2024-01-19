@@ -9,7 +9,7 @@ import (
 	"github.com/koki120/table-spec-gen/config"
 	"github.com/koki120/table-spec-gen/filter/consumer"
 	"github.com/koki120/table-spec-gen/filter/producer"
-	"github.com/koki120/table-spec-gen/pipe"
+	"github.com/koki120/table-spec-gen/filter/transformer"
 )
 
 func main() {
@@ -19,17 +19,17 @@ func main() {
 	}
 	defer db.Close()
 
-	source, err := producer.ProduceFromDB(db, config.DBName())
+	source, err := producer.FetchColumnMetadata(db, config.DBName())
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	columns, err := pipe.RowsToColumns(source)
+	metadata, err := transformer.ConvertSQLRowsToTableMetadata(source)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	tables := pipe.ColumnsToTables(columns)
+	tables := transformer.ConvertColumnMetadataToTableMetaData(metadata)
 
 	file, err := os.Create(config.OutputFileName())
 	if err != nil {

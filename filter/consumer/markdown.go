@@ -7,7 +7,7 @@ import (
 	"github.com/koki120/table-spec-gen/pipe"
 )
 
-func ExportToMarkdown(output io.Writer, tables []pipe.Table) error {
+func ExportToMarkdown(output io.Writer, tables []pipe.TableMetaData) error {
 	markdownTemplate := `
 # Table Specification
 {{range .}}

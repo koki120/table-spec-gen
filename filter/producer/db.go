@@ -2,7 +2,7 @@ package producer
 
 import "database/sql"
 
-func ProduceFromDB(db *sql.DB, schemaName string) (*sql.Rows, error) {
+func FetchColumnMetadata(db *sql.DB, schemaName string) (*sql.Rows, error) {
 	query := `
 SELECT 
 	c.TABLE_NAME, 

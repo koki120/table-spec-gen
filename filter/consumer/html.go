@@ -7,7 +7,7 @@ import (
 	"github.com/koki120/table-spec-gen/pipe"
 )
 
-func ExportToHTML(output io.Writer, tables []pipe.Table) error {
+func ExportToHTML(output io.Writer, tables []pipe.TableMetaData) error {
 
 	htmlTemplate := `
 <!DOCTYPE html>
