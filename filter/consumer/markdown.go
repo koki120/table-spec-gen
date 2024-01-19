@@ -1,8 +1,8 @@
 package consumer
 
 import (
-	"html/template"
 	"io"
+	"text/template"
 
 	"github.com/koki120/table-spec-gen/pipe"
 )
@@ -14,7 +14,7 @@ func ExportToMarkdown(output io.Writer, tables []pipe.Table) error {
 ## {{.TableName}}
 | Name | Type | Nullable | Constraints | Referenced | Default | Extra |
 |-------------|----------------|-------------|-------------|-------|------------------------|-------------------|
-{{range .Columns}}| {{.ColumnName}} | {{.ColumnType}} | {{.IsNullable}} | {{.ConstraintTypes}} | [{{.ReferencedTableName}}](#{{.ReferencedTableName}}) | {{.ColumnDefault}} | {{.Extra}} |
+{{range .Columns}}| {{.ColumnName}} | {{.ColumnType}} | {{.IsNullable}} | {{.ConstraintTypes}} | {{if ne .ReferencedTableName ""}}[{{.ReferencedTableName}}](#{{.ReferencedTableName}}){{end}} | {{.ColumnDefault}} | {{.Extra}} |
 {{end}}
 {{end}}
 `
