@@ -1,4 +1,4 @@
-package producer_test
+package integration_test
 
 import (
 	"database/sql"
