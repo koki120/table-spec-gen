@@ -1,6 +1,7 @@
 package config
 
 import (
+	"flag"
 	"log"
 	"os"
 )
@@ -11,12 +12,20 @@ const (
 )
 
 var (
-	dbName             string
-	output_file_format string
-	output_file_name   string
+	dbName           string
+	outputFileFormat string
+	outputFileName   string
 )
 
 func init() {
+	flag.StringVar(&outputFileFormat, "outputformat", MARKDOWN, "Output file format (markdown or html)")
+	flag.StringVar(&outputFileName, "outputfilename", "table_spec", "Output file name")
+	flag.Parse()
+
+	if outputFileFormat != HTML && outputFileFormat != MARKDOWN {
+		log.Fatalf("%s is unavailable", outputFileFormat)
+	}
+
 	if os.Getenv("DB_USER") == "" {
 		log.Fatal("DB_USER is empty")
 	}
@@ -38,26 +47,14 @@ func init() {
 		log.Fatal("DB_NAME is empty")
 	}
 
-	output_file_format = os.Getenv("OUTPUT_FILE_FORMAT")
-	if output_file_format == "" {
-		output_file_format = MARKDOWN
-	}
-	if output_file_format != HTML && output_file_format != MARKDOWN {
-		log.Fatalf("%s is unavailable", output_file_format)
-	}
-
-	output_file_name = os.Getenv("OUTPUT_FILE_NAME")
-	if output_file_name == "" {
-		output_file_name = ""
-	}
 }
 
 func OutputFileName() string {
-	return output_file_name + "." + output_file_format
+	return outputFileName + "." + outputFileFormat
 }
 
 func OutputFileFormat() string {
-	return output_file_format
+	return outputFileFormat
 }
 
 func DBName() string {
