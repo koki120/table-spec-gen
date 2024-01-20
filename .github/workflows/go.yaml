@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "DB_USER=docker" >> $GITHUB_ENV
           echo "DB_PASSWORD=password" >> $GITHUB_ENV
-          echo "DB_HOST=mysql" >> $GITHUB_ENV
+          echo "DB_HOST=localhost" >> $GITHUB_ENV
           echo "DB_PORT=3306" >> $GITHUB_ENV
           echo "DB_NAME=template" >> $GITHUB_ENV
 
