@@ -9,7 +9,7 @@ services:
     environment:
       - DB_USER=docker
       - DB_PASSWORD=password
-      - DB_HOST=mysql
+      - DB_HOST=test-mysql
       - DB_PORT=13306
       - DB_NAME=template
     depends_on:

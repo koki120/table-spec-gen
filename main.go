@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", config.DSN())
+	db, err := sql.Open("mysql", config.INFORMATION_SCHEMA_DSN())
 	if err != nil {
 		log.Fatal(err)
 	}

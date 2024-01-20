@@ -16,9 +16,9 @@ func TestExportToHTML(t *testing.T) {
 		tables []pipe.TableMetaData
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name   string
+		args   args
+		hasErr bool
 	}{
 		{
 			name: "success",
@@ -41,15 +41,15 @@ func TestExportToHTML(t *testing.T) {
 					},
 				},
 			},
-			wantErr: true,
+			hasErr: false,
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 
-			if err := consumer.ExportToHTML(tt.args.output, tt.args.tables); (err != nil) == tt.wantErr {
-				t.Errorf("ExportToHTML() error = %v, wantErr %v", err, tt.wantErr)
+			if err := consumer.ExportToHTML(tt.args.output, tt.args.tables); (err != nil) != tt.hasErr {
+				t.Errorf("ExportToHTML() error = %v, hasErr %v", err, tt.hasErr)
 			}
 		})
 	}
