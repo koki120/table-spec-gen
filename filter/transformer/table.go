@@ -1,43 +1,6 @@
 package transformer
 
-import (
-	"database/sql"
-
-	"github.com/koki120/table-spec-gen/pipe"
-)
-
-func ConvertSQLRowsToTableMetadata(rows *sql.Rows) ([]pipe.ColumnMetadata, error) {
-	defer rows.Close()
-	result := make([]pipe.ColumnMetadata, 0, 1000)
-	var (
-		tableName           sql.NullString
-		columnName          sql.NullString
-		columnDefault       sql.NullString
-		isNullable          sql.NullString
-		columnType          sql.NullString
-		extra               sql.NullString
-		referencedTableName sql.NullString
-		constraintTypes     sql.NullString
-	)
-	for rows.Next() {
-		if err := rows.Scan(&tableName, &columnName, &columnDefault, &isNullable, &columnType, &extra, &referencedTableName, &constraintTypes); err != nil {
-			return nil, err
-		}
-
-		result = append(result, pipe.ColumnMetadata{
-			TableName:           tableName.String,
-			ColumnName:          columnName.String,
-			ColumnDefault:       columnDefault.String,
-			IsNullable:          isNullable.String,
-			ColumnType:          columnType.String,
-			Extra:               extra.String,
-			ReferencedTableName: referencedTableName.String,
-			ConstraintTypes:     constraintTypes.String,
-		})
-	}
-
-	return result, nil
-}
+import "github.com/koki120/table-spec-gen/pipe"
 
 // columnsがテーブル順であることが前提
 func ConvertColumnMetadataToTableMetaData(cols []pipe.ColumnMetadata) []pipe.TableMetaData {
