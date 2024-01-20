@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"testing"
 )
 
 const (
@@ -18,6 +19,7 @@ var (
 )
 
 func init() {
+	testing.Init() // These flags are automatically registered by the "go test" command before running test function
 	flag.StringVar(&outputFileFormat, "outputformat", MARKDOWN, "Output file format (markdown or html)")
 	flag.StringVar(&outputFileName, "outputfilename", "table_spec", "Output file name")
 	flag.Parse()
