@@ -24,12 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	metadata, err := transformer.ConvertSQLRowsToTableMetadata(source)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	tables := transformer.ConvertColumnMetadataToTableMetaData(metadata)
+	tables := transformer.ConvertColumnMetadataToTableMetaData(source)
 
 	file, err := os.Create(config.OutputFileName())
 	if err != nil {

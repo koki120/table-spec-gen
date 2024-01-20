@@ -1,8 +1,12 @@
 package producer
 
-import "database/sql"
+import (
+	"database/sql"
 
-func FetchColumnMetadata(db *sql.DB, schemaName string) (*sql.Rows, error) {
+	"github.com/koki120/table-spec-gen/pipe"
+)
+
+func FetchColumnMetadata(db *sql.DB, schemaName string) ([]pipe.ColumnMetadata, error) {
 	query := `
 SELECT 
 	c.TABLE_NAME, 
@@ -29,6 +33,39 @@ GROUP BY
 	c.COLUMN_TYPE, 
 	c.EXTRA;
 `
+	rows, err := db.Query(query, schemaName)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
-	return db.Query(query, schemaName)
+	result := make([]pipe.ColumnMetadata, 0, 1000)
+	var (
+		tableName           sql.NullString
+		columnName          sql.NullString
+		columnDefault       sql.NullString
+		isNullable          sql.NullString
+		columnType          sql.NullString
+		extra               sql.NullString
+		referencedTableName sql.NullString
+		constraintTypes     sql.NullString
+	)
+
+	for rows.Next() {
+		if err := rows.Scan(&tableName, &columnName, &columnDefault, &isNullable, &columnType, &extra, &referencedTableName, &constraintTypes); err != nil {
+			return nil, err
+		}
+		result = append(result, pipe.ColumnMetadata{
+			TableName:           tableName.String,
+			ColumnName:          columnName.String,
+			ColumnDefault:       columnDefault.String,
+			IsNullable:          isNullable.String,
+			ColumnType:          columnType.String,
+			Extra:               extra.String,
+			ReferencedTableName: referencedTableName.String,
+			ConstraintTypes:     constraintTypes.String,
+		})
+	}
+
+	return result, nil
 }

@@ -1,4 +1,4 @@
-package transformer_test
+package producer_test
 
 import (
 	"database/sql"
