@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/koki120/table-spec-gen/config"
 	"github.com/koki120/table-spec-gen/filter/producer"
 	"github.com/koki120/table-spec-gen/filter/transformer"
 	"github.com/koki120/table-spec-gen/pipe"
@@ -100,7 +99,7 @@ func TestFetchColumnMetadata(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			source, err := producer.FetchColumnMetadata(informationSchemaDB, config.DBName())
+			source, err := producer.FetchColumnMetadata(informationSchemaDB, DBName())
 			if (err != nil) != tt.hasErr {
 				t.Errorf("FetchColumnMetadata error = %v, hasErr %v", err, tt.hasErr)
 			}

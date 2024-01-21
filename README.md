@@ -1,21 +1,18 @@
-# Table Specification Generator
+# MYSQL Tables Specification Generator
 
-This is a command-line application written in Go that connects to a MySQL database, extracts table information, and generates a file documenting the database schema.
+This is a command-line application written in Go that connects to a MySQL database, extracts table information, and generates a file documenting the database tables.
 
-## Usage 
-To run the application, you need to set the following environment variables:
-
-- DB_USER: Database user
-- DB_PASSWORD: Database password
-- DB_HOST: Database host
-- DB_PORT: Database port
-- DB_NAME: Database name
-
-Once the environment variables are set, execute the following command:
-
-```bash
-go run main.go -outputfilename=output -outputformat=md
+## Usage:
 ```
-- outputfilename: Specify the name of the output file. In the example above, it's set to "output," but you can choose a different name. The default value is "table_spec"
+open-mysql [flags]
+```
 
-- outputformat: Specify the desired output format. Currently, the supported formats are Markdown (md) and HTML. Choose either md or html. The default value is "md"
+### Flags:
+-  -n, --dbname string     db name
+-  -o, --filename string   output file name (default "output")
+-  -f, --format string     output file format. Choose either md, html or stdout. (default "md")
+-  -h, --help              help for open-mysql
+-  -s, --host string       db host
+-  -p, --password string   db password
+-  -r, --port string       db port
+-  -u, --user string       db user

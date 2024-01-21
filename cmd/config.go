@@ -1,28 +1,39 @@
-package config
+package cmd
 
 import (
 	"fmt"
-	"os"
 )
 
 func DSN() string {
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_NAME"),
+		dbUser,
+		dbPassword,
+		dbHost,
+		dbPort,
+		dbName,
 	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Asia%2FTokyo"
 }
 
 func INFORMATION_SCHEMA_DSN() string {
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
+		dbUser,
+		dbPassword,
+		dbHost,
+		dbPort,
 		"information_schema",
 	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Asia%2FTokyo"
+}
+
+func DBName() string {
+	return dbName
+}
+
+func OutputFileName() string {
+	return outputFileName
+}
+
+func OutputFileFormat() string {
+	return outputFileFormat
 }
