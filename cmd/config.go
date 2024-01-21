@@ -12,7 +12,7 @@ func DSN() string {
 		dbHost,
 		dbPort,
 		dbName,
-	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Asia%2FTokyo"
+	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True"
 }
 
 func INFORMATION_SCHEMA_DSN() string {
@@ -23,7 +23,7 @@ func INFORMATION_SCHEMA_DSN() string {
 		dbHost,
 		dbPort,
 		"information_schema",
-	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Asia%2FTokyo"
+	) + "?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True"
 }
 
 func DBName() string {
