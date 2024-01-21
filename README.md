@@ -4,7 +4,7 @@ This is a command-line application written in Go that connects to a MySQL databa
 
 ## Usage:
 ```
-open-mysql [flags]
+table-spec-gen [flags]
 ```
 
 ### Flags:
